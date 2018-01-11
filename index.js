@@ -1,37 +1,118 @@
-var rpio = require('rpio');
-var PythonShell = require('python-shell');
-var StepperWiringPi = require("stepper-wiringpi");
+var five = require('johnny-five');
+var raspi = require('raspi-io');
 
-/*
- * Run CoinTicker Python script
- * @url https://github.com/extrabacon/python-shell
- */
-var options = {
-    mode: 'text',
-    pythonPath: '/usr/bin/python',
-    pythonOptions: ['-u'],
-    scriptPath: './CoinTicker',
-    args: ['./CoinTicker/trades.yml']
-};
-
-var shell1 = PythonShell.run('stepper.py', {scriptPath: './', args: ['5']}, function (err, results) {
-    if (err) throw err;
-    console.log('results: %j', results);
+var board = new five.Board({
+  io: new raspi(),
 });
 
-var shell2 = PythonShell.run('run.py', options, function (err, results) {
-    if (err) throw err;
-    console.log('results: %j', results);
+board.on("ready", function() {
+  /**
+   * Setup Servo on pin 35
+   * @type {five}
+   */
+  var servo = new five.Servo({
+    pin: 'P1-35',
+    range: [0, 165],
+  });
+
+  /**
+   * Setup Piezo on pin 33
+   * @type {five}
+   */
+  var piezo = new five.Piezo('P1-33');
+
+  /**
+   * Inject Servo and Piezo into the REPL
+   * @type {object}
+   */
+  this.repl.inject({
+    servo: servo,
+    piezo: piezo
+  });
+
+  /**
+   * Play the Stanger Things theme song (fitting right?)
+   * @type {Number}
+   */
+  piezo.play({
+    tempo: 100,
+    song: [
+      ["C4", 1/4],
+      [null, 1/4],
+      ["E4", 1/4],
+      [null, 1/4],
+      ["G4", 1/4],
+      [null, 1/4],
+      ["B4", 1/4],
+      [null, 1/4],
+      [null, 1/4],
+      [null, 1/4],
+      ["B4", 1/4],
+      [null, 1/4],
+      ["G4", 1/4],
+      [null, 1/4],
+      ["E4", 1/4],
+      [null, 1/4],
+      ["C4", 1/4],
+      [null, 1/4],
+      ["E4", 1/4],
+      [null, 1/4],
+      ["G4", 1/4],
+      [null, 1/4],
+      ["B4", 1/4],
+      [null, 1/4],
+      [null, 1/4],
+      [null, 1/4],
+      ["B4", 1/4],
+      [null, 1/4],
+      ["G4", 1/4],
+      [null, 1/4],
+      ["E4", 1/4],
+      [null, 1/4],
+      ["C4", 1/4],
+      [null, 1/4],
+      ["E4", 1/4],
+      [null, 1/4],
+      ["G4", 1/4],
+      [null, 1/4],
+      ["B4", 1/4],
+      [null, 1/4],
+      [null, 1/4],
+      [null, 1/4],
+      ["B4", 1/4],
+      [null, 1/4],
+      ["G4", 1/4],
+      [null, 1/4],
+      ["E4", 1/4],
+      [null, 1/4],
+      ["C4", 1/4],
+      [null, 1/4],
+      ["E4", 1/4],
+      [null, 1/4],
+    ],
+  });
+
+  /**
+   * Move Servo a random degree between 45 - 90 to open the latch
+   * enough for a few treats to fall out
+   */
+  var randomDegree = Math.floor(Math.random() * (90 - 45 + 1)) + 45;
+  servo.to(randomDegree, 150, 20);
+
+  /**
+   * Once the latch open event has finished, close it immediately
+   * so only a few treats fall out, and not 100s
+   */
+  servo.on('move:complete', function() {
+    servo.max();
+  });
+
+  /**
+   * After the song has played (roughly 8 seconds +/- 1-2 seconds),
+   * quit the process so we can run it save memory and run it again.
+   */
+  setTimeout(function() {
+    // Buenas Noches
+    process.exit();
+  }, 10000);
 });
-
-rpio.open(12, rpio.OUTPUT, rpio.LOW);
-
-for (var i = 0; i < 5; i++) {
-    /* On for 1 second */
-    rpio.write(12, rpio.HIGH);
-    rpio.sleep(1);
-
-    /* Off for half a second (500ms) */
-    rpio.write(12, rpio.LOW);
-    rpio.msleep(500);
-}
