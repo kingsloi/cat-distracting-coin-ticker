@@ -14,7 +14,7 @@ try:
     logger.info("Starting Coin Ticker")
     UPDATER.start()
     while True:
-        sleep(15)
+        sleep(60)
 except KeyboardInterrupt:
     logger.info("Stopping Coin Ticker")
     UPDATER.stop()

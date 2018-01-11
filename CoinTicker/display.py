@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import requests
 import logging
 from PIL import ImageFont
@@ -40,12 +39,12 @@ class Display(object):
 
         point_width = epd2in13b.EPD_HEIGHT / point_count
         chart_height = epd2in13b.EPD_WIDTH - 60
-
+        
         for y in range (0, epd2in13b.EPD_HEIGHT):
             div = int(y / point_width)
             index = point_count - 1 - min(div, point_count - 1)
             value = points[index]
-
+                
             line_height = int(value * chart_height)
             for x in range(epd2in13b.EPD_WIDTH, epd2in13b.EPD_WIDTH - line_height, -1):
                 self.__epd.set_pixel(self.__frame_red, x, y, COLORED)

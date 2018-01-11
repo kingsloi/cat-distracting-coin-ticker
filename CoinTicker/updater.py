@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from time import sleep
 from display import Display
 from data_source import DataSource
@@ -16,7 +15,7 @@ class Updater(object):
         while self.__running:
             data = self.__data_source.get()
             self.__display.update(data)
-            sleep(60 * 5)
+            sleep(60 * 30)
 
     def stop(self):
         self.__running = False
