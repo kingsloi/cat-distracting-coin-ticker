@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.16.2",
     "johnny-five": "^0.12.0",
     "python-shell": "^0.4.0",
     "raspi-io": "^8.1.0",
     "rpio": "^0.9.20",
-    "stepper-wiringpi": "github:nkolban/node-stepper-wiringpi"
+    "socket.io": "^2.0.4",
+    "stepper-wiringpi": "github:nkolban/node-stepper-wiringpi",
+    "sudo": "^1.0.3"
   },
   "devDependencies": {},
   "scripts": {

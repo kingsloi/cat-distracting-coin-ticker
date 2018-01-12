@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cat Treat Dispenser</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+          font-size: 16px;
+          margin: 20px;
+        }
+
+        button {
+          font-size: 3rem;
+          padding: 15px;
+        }
+    </style>
+</head>
+<body>
+  <button onclick="feedBtnClicked()">feed him</button>
+
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    var socket = io.connect();
+
+    function feedBtnClicked(){
+        socket.emit('feedBtnClicked');
+    }
+
+  //when we receive buttonUpdate, do this
+  socket.on('buttonUpdate', function(data){
+      alert('He has been treated ' + data + ' times');
+  });
+</script>
+</body>
+</html>
