@@ -13,27 +13,31 @@ npm install
 ```
 
 ## Usage
-*Treat*
+**Treat**
 - Sound alert, open motor once, close
+
 ```sudo node /home/pi/Projects/cat-distracting-coin-ticker/feeder.js --task=treat```
 
-*Open*
+**Open**
 - Open the feeder (i.e. for re-filling)
+
 ```sudo node /home/pi/Projects/cat-distracting-coin-ticker/feeder.js --task=treat```
 
-*Close*
+**Close**
 - Close the feeder (i.e. after filling)
+
 ```sudo node /home/pi/Projects/cat-distracting-coin-ticker/feeder.js --task=treat```
 
-*Sweep*
+**Sweep**
 - Sweep the motor. Good for testing out the range (i.e. to test your treat has enough room to escape
   when the `treat` method runs)
+
 ```sudo node /home/pi/Projects/cat-distracting-coin-ticker/feeder.js --task=sweep```
 
 ## Setup cat distractor cronjob
 ```
 $ crontab -e
 
-0 1,2,3,4,5,6 * * * /home/pi/Projects/cat-distracting-coin-ticker/index.js
+0 1,2,3,4,5,6 * * * /home/pi/Projects/cat-distracting-coin-ticker/feeder.js --task=treat
 ```
 
