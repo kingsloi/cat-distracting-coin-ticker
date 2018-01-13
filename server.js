@@ -17,7 +17,7 @@ io.on('connection', function(client) {
     client.on('feedBtnClicked', function() {
         clickCount++;
         io.emit('buttonUpdate', clickCount);
-        var child = sudo(['node', __dirname + '/index.js']);
+        var child = sudo(['node', __dirname + '/feeder.js', '--task=treat']);
 
         child.stdout.on('data', function (data) {
             console.log(data.toString());

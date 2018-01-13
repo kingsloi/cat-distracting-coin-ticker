@@ -13,6 +13,14 @@ const board = new five.Board({
     io: new raspi(),
 });
 
+
+const rangeMin = 0;
+const rangeMax = 150;
+const sweepMin = 90;
+const sweepMax = 115;
+
+const sweepFix = rangeMax - 15;
+
 board.on('ready', function() {
     /**
     * Setup Servo on pin 35
@@ -20,7 +28,10 @@ board.on('ready', function() {
     */
     const servo = new five.Servo({
         pin: 'P1-35',
-        range: [0, 150],
+        range: [
+            rangeMin,
+            rangeMax
+        ],
     });
 
     /**
@@ -70,7 +81,7 @@ board.on('ready', function() {
                 * Move Servo a random degree between 45 - 90 to open the latch
                 * enough for a few treats to fall out
                 */
-               var randomDegree = Math.floor(Math.random() * (115 - 90 + 1)) + 90;
+               var randomDegree = Math.floor(Math.random() * (sweepMax - sweepMin + 1)) + sweepMin;
                 servo.to(randomDegree, 150, 20);
             }, 8000);
 
@@ -82,7 +93,7 @@ board.on('ready', function() {
                 servo.max();
 
                 setTimeout(function() {
-                    servo.to(140);
+                    servo.to(sweepFix);
                 }, 2500);
 
                 setTimeout(function() {
@@ -107,7 +118,11 @@ board.on('ready', function() {
             }, 5000);
             break;
         case 'sweep':
-            servo.sweep();
+            servo.sweep([sweepMin, sweepMax]);
+            setTimeout(function() {
+                servo.stop();
+                process.exit();
+            }, 8000);
             break;
         default:
             console.log(`No task found with name '${argv.task}'. Quitting.`);
