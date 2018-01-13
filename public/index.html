@@ -3,9 +3,10 @@
 <head>
     <title>Cat Treat Dispenser</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
-          font-size: 16px;
+          font-size: 20px;
           margin: 20px;
         }
 
@@ -18,9 +19,11 @@
 <body>
   <p><button onclick="feedBtnClicked()">feed him</button></p>
 
-  <p><button onclick="minBtnClicked()">open</button></p>
+  <p><button onclick="openBtnClicked()">open</button></p>
 
-  <p><button onclick="maxBtnClicked()">close</button></p>
+  <p><button onclick="closeBtnClicked()">close</button></p>
+
+  <p><button onclick="sweepBtnClicked()">close</button></p>
 
   <script src="/socket.io/socket.io.js"></script>
 
@@ -31,23 +34,26 @@
         socket.emit('feedBtnClicked');
     }
 
-    function minBtnClicked(){
-        socket.emit('minBtnClicked');
+    function openBtnClicked(){
+        socket.emit('openBtnClicked');
     }
 
-    function maxBtnClicked(){
-        socket.emit('maxBtnClicked');
+    function closeBtnClicked(){
+        socket.emit('closeBtnClicked');
     }
 
-  //when we receive buttonUpdate, do this
-  socket.on('buttonUpdate', function(data){
-      alert('He has been treated ' + data + ' times');
-  });
+    function sweepBtnClicked(){
+        socket.emit('sweepBtnClicked');
+    }
 
-  socket.on('motorMoved', function(motorStatus){
-      alert('motor is now ' + motorStatus);
-  });
+    socket.on('buttonUpdate', function(data){
+        alert('Feeder has been manually ran ' + data + ' times');
+    });
 
-</script>
+    socket.on('motorMoved', function(status){
+        alert('feeder is now set to' + motorStatus);
+    });
+  </script>
+
 </body>
 </html>

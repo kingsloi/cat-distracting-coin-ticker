@@ -24,18 +24,26 @@ io.on('connection', function(client) {
         });
     });
 
-    client.on('minBtnClicked', function() {
-        var child = sudo(['node', __dirname + '/min.js']);
-        io.emit('motorMoved', 'min');
+    client.on('openBtnClicked', function() {
+        var child = sudo(['node', __dirname + '/feeder.js', '--task=open']);
+        io.emit('motorMoved', 'open');
         child.stdout.on('data', function (data) {
             console.log(data.toString());
         });
     });
 
-    client.on('maxBtnClicked', function() {
-        var child = sudo(['node', __dirname + '/max.js']);
+    client.on('closeBtnClicked', function() {
+        var child = sudo(['node', __dirname + '/feeder.js', '--task=close']);
 
-        io.emit('motorMoved', 'max');
+        io.emit('motorMoved', 'close');
+        child.stdout.on('data', function (data) {
+            console.log(data.toString());
+        });
+    });
+
+    client.on('sweepBtnClicked', function() {
+        var child = sudo(['node', __dirname + '/feeder.js', '--task=sweep']);
+        io.emit('motorMoved', 'sweep');
         child.stdout.on('data', function (data) {
             console.log(data.toString());
         });
