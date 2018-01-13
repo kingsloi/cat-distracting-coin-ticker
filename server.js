@@ -17,11 +17,25 @@ io.on('connection', function(client) {
     client.on('feedBtnClicked', function() {
         clickCount++;
         io.emit('buttonUpdate', clickCount);
-
-        // var test = child.fork(__dirname + '/index.js');
-
         var child = sudo(['node', __dirname + '/index.js']);
 
+        child.stdout.on('data', function (data) {
+            console.log(data.toString());
+        });
+    });
+
+    client.on('minBtnClicked', function() {
+        var child = sudo(['node', __dirname + '/min.js']);
+        io.emit('motorMoved', 'min');
+        child.stdout.on('data', function (data) {
+            console.log(data.toString());
+        });
+    });
+
+    client.on('maxBtnClicked', function() {
+        var child = sudo(['node', __dirname + '/max.js']);
+
+        io.emit('motorMoved', 'max');
         child.stdout.on('data', function (data) {
             console.log(data.toString());
         });

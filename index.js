@@ -13,7 +13,7 @@ board.on('ready', function() {
     */
     var servo = new five.Servo({
         pin: 'P1-35',
-        range: [0, 165],
+        range: [0, 150],
     });
 
     /**
@@ -35,62 +35,79 @@ board.on('ready', function() {
     * Play the Stanger Things theme song (fitting right?)
     * @type {Number}
     */
-    piezo.play({
-        tempo: 100,
-        song: [
-            ['C4', 1/4],
-            [null, 1/4],
-            ['E4', 1/4],
-            [null, 1/4],
-            ['G4', 1/4],
-            [null, 1/4],
-            ['B4', 1/4],
-            [null, 1/4],
-            [null, 1/4],
-            [null, 1/4],
-            ['B4', 1/4],
-            [null, 1/4],
-            ['G4', 1/4],
-            [null, 1/4],
-            ['E4', 1/4],
-            [null, 1/4],
-            ['C4', 1/4],
-            [null, 1/4],
-            ['E4', 1/4],
-            [null, 1/4],
-            ['G4', 1/4],
-            [null, 1/4],
-            ['B4', 1/4],
-            [null, 1/4],
-            [null, 1/4],
-            [null, 1/4],
-            ['B4', 1/4],
-            [null, 1/4],
-            ['G4', 1/4],
-            [null, 1/4],
-            ['E4', 1/4],
-            [null, 1/4],
-            ['C4', 1/4],
-            [null, 1/4],
-            ['E4', 1/4],
-            [null, 1/4],
-            ['G4', 1/4],
-            [null, 1/4],
-            ['B4', 1/4],
-            [null, 1/4],
-            [null, 1/4],
-            [null, 1/4],
-            ['B4', 1/4],
-            [null, 1/4],
-            ['G4', 1/4],
-            [null, 1/4],
-            ['E4', 1/4],
-            [null, 1/4],
-            ['C4', 1/4],
-            [null, 1/4],
-            ['E4', 1/4],
-            [null, 1/4],
-        ],
+    // piezo.play({
+    //     tempo: 200,
+    //     song: [
+    //         ['C4', 1/4],
+    //         [null, 1/4],
+    //         ['E4', 1/4],
+    //         [null, 1/4],
+    //         ['G4', 1/4],
+    //         [null, 1/4],
+    //         ['B4', 1/4],
+    //         [null, 1/4],
+    //         [null, 1/4],
+    //         [null, 1/4],
+    //         ['B4', 1/4],
+    //         [null, 1/4],
+    //         ['G4', 1/4],
+    //         [null, 1/4],
+    //         ['E4', 1/4],
+    //         [null, 1/4],
+    //         ['C4', 1/4],
+    //         [null, 1/4],
+    //         ['E4', 1/4],
+    //         [null, 1/4],
+    //         ['G4', 1/4],
+    //         [null, 1/4],
+    //         ['B4', 1/4],
+    //         [null, 1/4],
+    //         [null, 1/4],
+    //         [null, 1/4],
+    //         ['B4', 1/4],
+    //         [null, 1/4],
+    //         ['G4', 1/4],
+    //         [null, 1/4],
+    //         ['E4', 1/4],
+    //         [null, 1/4],
+    //         ['C4', 1/4],
+    //         [null, 1/4],
+    //         ['E4', 1/4],
+    //         [null, 1/4],
+    //         ['G4', 1/4],
+    //         [null, 1/4],
+    //         ['B4', 1/4],
+    //         [null, 1/4],
+    //         [null, 1/4],
+    //         [null, 1/4],
+    //         ['B4', 1/4],
+    //         [null, 1/4],
+    //         ['G4', 1/4],
+    //         [null, 1/4],
+    //         ['E4', 1/4],
+    //         [null, 1/4],
+    //         ['C4', 1/4],
+    //         [null, 1/4],
+    //         ['E4', 1/4],
+    //         [null, 1/4],
+    //     ],
+    // });
+
+    /**
+    * Once the latch open event has finished, close it immediately
+    * so only a few treats fall out, and not 100s
+    */
+    servo.on('move:complete', function() {
+        servo.max();
+
+        setTimeout(function() {
+            servo.to(135);
+        }, 1000);
+
+        setTimeout(function() {
+            // Buenas Noches
+            process.exit();
+        }, 2000)
     });
 
     /**
@@ -103,18 +120,8 @@ board.on('ready', function() {
         * Move Servo a random degree between 45 - 90 to open the latch
         * enough for a few treats to fall out
         */
-        var randomDegree = Math.floor(Math.random() * (90 - 45 + 1)) + 45;
+       var randomDegree = Math.floor(Math.random() * (150 - 148 + 1)) + 148;
         servo.to(randomDegree, 150, 20);
+    }, 2000);
 
-        /**
-        * Once the latch open event has finished, close it immediately
-        * so only a few treats fall out, and not 100s
-        */
-        servo.on('move:complete', function() {
-            servo.max();
-
-            // Buenas Noches
-            process.exit();
-        });
-    }, 10000);
 });

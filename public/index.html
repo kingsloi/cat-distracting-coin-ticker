@@ -16,7 +16,11 @@
     </style>
 </head>
 <body>
-  <button onclick="feedBtnClicked()">feed him</button>
+  <p><button onclick="feedBtnClicked()">feed him</button></p>
+
+  <p><button onclick="minBtnClicked()">open</button></p>
+
+  <p><button onclick="maxBtnClicked()">close</button></p>
 
   <script src="/socket.io/socket.io.js"></script>
 
@@ -27,10 +31,23 @@
         socket.emit('feedBtnClicked');
     }
 
+    function minBtnClicked(){
+        socket.emit('minBtnClicked');
+    }
+
+    function maxBtnClicked(){
+        socket.emit('maxBtnClicked');
+    }
+
   //when we receive buttonUpdate, do this
   socket.on('buttonUpdate', function(data){
       alert('He has been treated ' + data + ' times');
   });
+
+  socket.on('motorMoved', function(motorStatus){
+      alert('motor is now ' + motorStatus);
+  });
+
 </script>
 </body>
 </html>
