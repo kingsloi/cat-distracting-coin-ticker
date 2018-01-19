@@ -15,11 +15,11 @@ const board = new five.Board({
 
 
 const rangeMin = 0;
-const rangeMax = 150;
+const rangeMax = 120;
 const sweepMin = 90;
-const sweepMax = 115;
+const sweepMax = 105;
 
-const sweepFix = rangeMax - 15;
+const sweepFix = rangeMax - 20;
 
 board.on('ready', function() {
     /**
@@ -99,7 +99,7 @@ board.on('ready', function() {
                 setTimeout(function() {
                     // Buenas Noches
                     process.exit();
-                }, 5000);
+                }, 10000);
             });
 
             break;
@@ -121,8 +121,12 @@ board.on('ready', function() {
             servo.sweep([sweepMin, sweepMax]);
             setTimeout(function() {
                 servo.stop();
-                process.exit();
             }, 8000);
+
+            setTimeout(function() {
+                servo.max();
+                process.exit();
+            }, 10000);
             break;
         default:
             console.log(`No task found with name '${argv.task}'. Quitting.`);
