@@ -1,4 +1,4 @@
-# Cat Distracting CryptoCoin Ticker
+# Catboard
 
 I have an asshole cat, who likes to wake my wife and I up what seems like every hour playing silly buggers. I also want to add a smart display so I can code a personal dashboard (todo.), weather, crypto portfolio tracking, upcoming calendar events, etc.
 
@@ -21,12 +21,12 @@ npm install
 **Open**
 - Open the feeder (i.e. for re-filling)
 
-```sudo node /home/pi/Projects/cat-distracting-coin-ticker/feeder.js --task=treat```
+```sudo node /home/pi/Projects/cat-distracting-coin-ticker/feeder.js --task=open```
 
 **Close**
 - Close the feeder (i.e. after filling)
 
-```sudo node /home/pi/Projects/cat-distracting-coin-ticker/feeder.js --task=treat```
+```sudo node /home/pi/Projects/cat-distracting-coin-ticker/feeder.js --task=close```
 
 **Sweep**
 - Sweep the motor. Good for testing out the range (i.e. to test your treat has enough room to escape

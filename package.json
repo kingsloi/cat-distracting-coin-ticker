@@ -8,7 +8,20 @@
     "node": ">=8.x"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
+    "got": "^8.0.2",
+    "hoek": "^5.0.2",
+    "moment": "^2.20.1",
     "vudash": "^9.0.0",
-    "vudash-widget-time": "^8.1.2"
+    "vudash-widget-time": "^8.0.0",
+    "vudash-widget-statistic": "^8.1.0",
+    "@vudash/datasource-random": "^8.0.0",
+    "@vudash/datasource-rest": "^8.0.0",
+    "@vudash/widget-chart": "^8.0.0",
+    "vudash-widget-ci": "^8.0.0",
+    "vudash-widget-gauge": "^8.0.0",
+    "vudash-widget-health": "^8.0.0",
+    "vudash-widget-progress": "^8.0.0",
+    "vudash-widget-status": "^8.0.0"
   }
 }
