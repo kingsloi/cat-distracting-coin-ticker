@@ -12,13 +12,7 @@ import ProgressWidget from '../widgets/progress/widget';
 
 ReactDOM.render(
   <Dashboard>
-    <SparklineWidget name="DemoUsers" title="Users" format="0.00a" />
-    <PingWidget name="GooglePing" title="API" />
-    <NumberWidget name="ReasonPRs" title="Pull Requests" />
-    <BuildStatusWidget name="DemoMaster" title="Build - Master" size="medium" />
-    <ProgressWidget name="DemoProgress" title="Sales Target" />
-    <NumberWidget name="DemoConversion" title="Conversion" metric="%" format="0.0a" />
-    <BuildStatusWidget name="DemoDevelop" title="Build - Develop" size="medium" />
+    <SparklineWidget name="CoinTicker" title="Users" format="0.0a" metric="%" />
   </Dashboard>,
   document.getElementById('content'),
 );
