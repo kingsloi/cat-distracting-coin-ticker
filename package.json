@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "babel-node app.js",
-    "build": "webpack -p --progress --colors",
+    "build": "NODE_ENV='production' webpack -p --progress --colors",
     "test": "ava test -v",
     "lint": "eslint .",
     "coverage": "nyc ava test",

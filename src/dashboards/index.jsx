@@ -12,7 +12,7 @@ import ProgressWidget from '../widgets/progress/widget';
 
 ReactDOM.render(
   <Dashboard>
-    <SparklineWidget name="CoinTicker" title="Users" format="0.0a" metric="%" />
+    <SparklineWidget name="CoinTicker" title="Portfolio" format="0.0a" metric="%" />
   </Dashboard>,
   document.getElementById('content'),
 );
