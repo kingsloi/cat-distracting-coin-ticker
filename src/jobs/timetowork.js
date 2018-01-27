@@ -14,7 +14,7 @@ const options = {
   json: true,
 };
 
-export const interval = '*/2 * * * *'; // See https://crontab.guru/ for help
+export const interval = '*/15 * * * *'; // See https://crontab.guru/ for help
 export const perform = async () => {
 
   let config = loadJsonFile.sync('personal-config.json');

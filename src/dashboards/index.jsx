@@ -16,7 +16,7 @@ const socket = socketIOClient(`http://${window.location.host}`);
 
 ReactDOM.render(
   <Dashboard>
-    <SparklineWidget name="CoinTicker" title="Portfolio" format="0.0a" metric="%" />
+    <SparklineWidget name="CoinTicker" title="Portfolio" format="+0.0a" metric="%" />
     <NumberWidget name="TimeToWork" title="Time to CP" format="0" metric="mins" />
     <NumberWidget name="LocationTemp" title="Current Weather" />
   </Dashboard>,
