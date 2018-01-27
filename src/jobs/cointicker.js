@@ -14,16 +14,16 @@ const options = {
   json: true,
 };
 
-export const interval = '*/15 * * * *'; // See https://crontab.guru/ for help
+export const interval = '*/2 * * * *'; // See https://crontab.guru/ for help
 export const perform = async () => {
 
-  let financials = loadJsonFile.sync('financials.json');
+  let config = loadJsonFile.sync('personal-config.json');
 
   let valueTotal = 0;
   let investmentTotal = 0;
   let coinUrl = 'https://api.cryptonator.com/api/ticker/%s-usd';
 
-  for (let share of financials.portfolio) {
+  for (let share of config.portfolio) {
     let symbol = share.symbol.toLowerCase();
 
     options.uri = coinUrl.replace(/%[a-z]/, symbol);
@@ -48,6 +48,7 @@ export const perform = async () => {
   try {
     await redis.rpush(cacheKey, gain);
     history = await redis.lrange(cacheKey, 0, -1);
+    redis.ltrim(cacheKey, 0, 10);
   } catch (err) {
     logger('error', 'cacheResponseProxy', err);
     throw err;
